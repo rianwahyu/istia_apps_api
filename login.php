@@ -12,7 +12,7 @@ $password = $_POST["password"];
 
 if ((empty($username)) || (empty($password))) {
     $response = new usr();
-    $response->success = 0;
+    $response->success = false;
     $response->message = "Kolom tidak boleh kosong";
     die(json_encode($response));
 }
@@ -25,7 +25,7 @@ if (!empty($row)) {
     if ($row["password"] == $password) {
 
         $response = new usr();
-        $response->success = 1;
+        $response->success = true;
         $response->message = "Selamat datang " . $row['username'];
         $response->userID = $row['userID'];
         $response->username = $row['username'];
@@ -34,7 +34,7 @@ if (!empty($row)) {
         die(json_encode($response));
     } else {
         $response = new usr();
-        $response->success = 0;
+        $response->success = false;
         $response->message = "Mohon maaf, periksa kembali password anda ";
         die(json_encode($response));
     }
