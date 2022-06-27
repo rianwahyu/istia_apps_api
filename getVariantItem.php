@@ -5,11 +5,11 @@ include 'connection.php';
 
 $itemID = $_POST['itemID'];
 
-$query = "SELECT a.variantID, a.itemID, b.itemName, a.color, a.size, a.price 
+$query = "SELECT a.variantID, a.itemID, b.itemName as merek, a.color, a.size, a.price 
 FROM 
 variantItem a 
 INNER JOIN masterItem b ON a.itemID=b.itemID
-WHERE a.itemID='210001'";
+WHERE a.itemID='$itemID'";
 $result = mysqli_query($dbc, $query);
 if(mysqli_num_rows($result) >=1){
     while($data = mysqli_fetch_assoc($result)){
@@ -23,6 +23,6 @@ if(mysqli_num_rows($result) >=1){
 }else{
     echo json_encode(array(
         "success" => false,
-        "message" => "Tidak ada data"
+        "message" => "Belum ada data, tambahkan data"
     ));
 }

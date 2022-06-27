@@ -10,34 +10,36 @@ $vote = $_POST['vote'];
 $username = $_POST['username'];
 
 
-$variantID = getItemID($itemID, $color, $size);
+$variantID = getVariantID($itemID, $color, $size);
 
-$query = "INSERT INTO `analyticsItem`(`itemID`,`variantID`, `vote`, `analyticsDate`, `analyticsBy`) VALUES ('$itemID','$variantID', '$vote', NOW(), '$username')";
-$result = mysqli_query($dbc, $query);
+//echo $variantID;
 
-if ($result === TRUE) {
-    echo json_encode(array(
-        "success" => true,
-        "message" => "Data berhasil di simpan"
-    ));
-} else {
-    echo json_encode(array(
-        "success" => false,
-        "message" => "Gagal"
-    ));
+if (!empty($variantID)) {
+    $query = "INSERT INTO `analyticsItem`(`itemID`,`variantID`, `vote`, `analyticsDate`, `analyticsBy`) VALUES ('$itemID','$variantID', '$vote', NOW(), '$username')";
+    $result = mysqli_query($dbc, $query);
+
+    if ($result === TRUE) {
+        echo json_encode(array(
+            "success" => true,
+            "message" => "Data berhasil di simpan"
+        ));
+    } else {
+        echo json_encode(array(
+            "success" => false,
+            "message" => "Gagal"
+        ));
+    }
 }
 
 
 
 function getVariantID($itemID, $color, $size)
 {
-    include 'connection.php';
-    //$curYear = date('y');
+    include 'connection.php';    
     $querys = "SELECT `variantID` FROM `variantItem` WHERE `itemID`='$itemID' AND `color`='$color' AND size='$size'";
     $result = mysqli_query($dbc, $querys) or die("Unable to verify user because : " . mysqli_error($dbc));
     $rows = mysqli_fetch_assoc($result);
-    if(!empty($rows)){
+    if (!empty($rows)) {
         return $rows['variantID'];
     }
-
 }
