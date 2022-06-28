@@ -3,7 +3,7 @@
 include 'connection.php';
 
 $query = "SELECT * FROM (
-    SELECT c.itemID, a.variantID, c.itemName, b.color, b.size, SUM(a.vote) as vote
+    SELECT c.itemID, a.variantID, c.itemName, b.color, b.size, SUM(a.vote) as vote, SUM(IF(a.vote=3, 1, 0)) as totalLaris
     FROM analyticsItem a 
     INNER JOIN variantItem b ON a.variantID=b.variantID
     INNER JOIN masterItem c ON b.itemID=c.itemID
