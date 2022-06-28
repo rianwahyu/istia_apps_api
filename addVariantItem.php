@@ -6,10 +6,11 @@ $itemID = $_POST['itemID'];
 $color = $_POST['color'];
 $size = $_POST['size'];
 $price = $_POST['price'];
+$dateUpload = $_POST['dateUpload'];
 
 $variantID = getVariantID($itemID);
 
-$query = "INSERT INTO `variantItem`(`variantID`, `itemID`, `color`, `size`, `price`) VALUES ('$variantID', '$itemID', '$color', '$size', '$price')";
+$query = "INSERT INTO `variantItem`(`variantID`, `itemID`, `color`, `size`, `price`, `dateUpload`) VALUES ('$variantID', '$itemID', '$color', '$size', '$price', '$dateUpload')";
 $result = mysqli_query($dbc, $query);
 
 if ($result === TRUE) {
